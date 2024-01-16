@@ -3,10 +3,23 @@ on:
   push:
     branches: [ main ]
 jobs:
-  container-test-job:
+  container-test-job-x86:
     runs-on: ubuntu-latest
     container:
       image: rust:latest@sha256:bdcc0ff37ad3948ef2c80765b952784cae54f68300e2a0af120bb7335555ed49
     steps:
       - name: cargo version
         run: cargo --version
+      - name: list dir
+        run: ls -la
+
+
+  container-test-job-aarch64:
+    runs-on: ubuntu-latest
+    container:
+        image: rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072
+    steps:
+        - name: cargo version
+          run: cargo --version 
+
+
