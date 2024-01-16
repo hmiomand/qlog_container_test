@@ -23,6 +23,6 @@ jobs:
         run: docker build --platform ${{ matrix.platform }} . -t toto
         
       - name: Docker run toto
-        run: docker run --platform ${{ matrix.platform }} --rm toto
+        run: docker run --platform ${{ matrix.platform }} --rm toto -i "kit.jpeg" -t images -n 2 -s -v
 
 
