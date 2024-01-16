@@ -10,12 +10,16 @@ jobs:
     steps:
       - name: cargo version
         run: cargo --version
+      - name: Git Checkout
+        uses: actions/checkout@v3
+      - name: PWD
+        run: pwd
       - name: list dir
         run: ls -la
 
 
   container-test-job-aarch64:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest-large
     container:
         image: rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072
     steps:
