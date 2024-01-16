@@ -29,7 +29,7 @@ jobs:
         #     platforms: arm64
         - name: install qemu
           run: |
-            apt-get update && apt-get install -y --no-install-recommends qemu-user-static binfmt-support
+            sudo apt install -y --no-install-recommends qemu-user-static binfmt-support
             update-binfmts --enable qemu-arm
             update-binfmts --display qemu-arm 
         - name: run docker
