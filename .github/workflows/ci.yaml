@@ -23,10 +23,15 @@ jobs:
 #    container:
 #        image: rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072
     steps:
-        - name: Set up QEMU
-          uses: docker/setup-qemu-action@v3
-          with:
-            platforms: arm64
+        # - name: Set up QEMU
+        #   uses: docker/setup-qemu-action@v3
+        #   with:
+        #     platforms: arm64
+        - name: install qemu
+          run: |
+            apt-get update && apt-get install -y --no-install-recommends qemu-user-static binfmt-support
+            update-binfmts --enable qemu-arm
+            update-binfmts --display qemu-arm 
         - name: run docker
           run: docker run rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072​ uname -m
 
