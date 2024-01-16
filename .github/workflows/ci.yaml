@@ -3,40 +3,26 @@ on:
   push:
     branches: [ main ]
 jobs:
-  container-test-job-x86:
+  container-test-job:
+    strategy:
+      matrix:
+        platform: [linux/amd64, linux/arm64]
     runs-on: ubuntu-latest
-    container:
-      image: rust:latest@sha256:bdcc0ff37ad3948ef2c80765b952784cae54f68300e2a0af120bb7335555ed49
     steps:
-      - name: cargo version
-        run: cargo --version
+      - name: Set up QEMU
+        if: matrix.platform == 'linux/arm64'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
       - name: Git Checkout
         uses: actions/checkout@v3
-      - name: PWD
-        run: pwd
-      - name: list dir
-        run: ls -la
 
 
-  container-test-job-aarch64:
-    runs-on: ubuntu-latest
-    container:
-      image: rust:latest@sha256:5fc2bc0f63029e952e6a26af3dda37caea3f8a578ab662186c7abaf8fe9b1b59
-    # steps:
-    #     - name: Set up QEMU
-    #       uses: docker/setup-qemu-action@v3
-    #       with:
-    #         platforms: arm64
-    #     - name: run docker
-    #       run: docker run rust:latest@sha256:5fc2bc0f63029e952e6a26af3dda37caea3f8a578ab662186c7abaf8fe9b1b59 uname -m
-    steps:
-      - name: cargo version
-        run: cargo --version
-      - name: Git Checkout
-        uses: actions/checkout@v3
-      - name: PWD
-        run: pwd
-      - name: list dir
-        run: ls -la
+      - name: Build Docker
+        run: docker build --platform ${{ matrix.platform }} . -t toto
+        
+      - name: Docker run toto
+        run: docker run --rm toto
 
 
