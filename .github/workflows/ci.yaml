@@ -19,11 +19,14 @@ jobs:
 
 
   container-test-job-aarch64:
-    runs-on: macos-latest-large
-    container:
-        image: rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072
+    runs-on: ubuntu-latest
+#    container:
+#        image: rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072
     steps:
-        - name: cargo version
-          run: cargo --version 
+        - name: Set up QEMU
+          uses: docker/setup-qemu-action@v3
+        - name: run docker
+          run: docker run rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072​ uname -m
+
 
 
