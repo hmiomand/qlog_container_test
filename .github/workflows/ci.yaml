@@ -25,6 +25,8 @@ jobs:
     steps:
         - name: Set up QEMU
           uses: docker/setup-qemu-action@v3
+          with:
+            platforms: arm64
         - name: run docker
           run: docker run rust:latest@sha256:52ecb79c0194599afa066c00fb25f1872f0a2306ddd39c8cca32e0580523b072​ uname -m
 
