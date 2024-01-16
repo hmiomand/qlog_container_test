@@ -1,0 +1,12 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+jobs:
+  container-test-job:
+    runs-on: ubuntu-latest
+    container:
+      image: rust:latest@sha256:bdcc0ff37ad3948ef2c80765b952784cae54f68300e2a0af120bb7335555ed49
+    steps:
+      - name: cargo version
+        run: cargo --version
